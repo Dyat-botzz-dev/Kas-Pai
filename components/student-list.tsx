@@ -7,13 +7,13 @@ interface Student {
   id: string
   name: string
   status: "lunas" | "belum"
-  lastPaymentDate: string
   totalPaid: number
+  lastPaymentDate: string | null
 }
 
 interface Payment {
   id: string
-  studentName: string
+  student_name: string
   amount: number
   date: string
   day: string
@@ -29,7 +29,7 @@ export function StudentList() {
       : "bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800"
   }
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString: string | null) => {
     if (!dateString) return "-"
     const date = new Date(dateString)
     return date.toLocaleDateString("id-ID", {
