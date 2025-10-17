@@ -5,7 +5,7 @@ import { Menu, X, Moon, Sun } from "lucide-react"
 
 interface NavigationProps {
   currentPage: string
-  onPageChange: (page: string) => void
+  onPageChange: (page: any) => void
   isAdmin: boolean
   onAdminLogout: () => void
   theme: string
@@ -21,6 +21,7 @@ export function Navigation({
   onThemeToggle,
 }: NavigationProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [showHelp, setShowHelp] = useState(false)
 
   const navItems = [
     { id: "dashboard", label: "Dashboard", icon: "📊" },
@@ -52,7 +53,10 @@ export function Navigation({
             {navItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => onPageChange(item.id)}
+                onClick={() => {
+                  if (item.id === "help") setShowHelp(true)
+                  else onPageChange(item.id)
+                }}
                 className={`px-4 py-2 rounded-lg transition-smooth flex items-center gap-2 font-medium text-sm ${
                   currentPage === item.id
                     ? "bg-primary text-primary-foreground shadow-md-light"
@@ -67,7 +71,6 @@ export function Navigation({
 
           {/* Right side controls */}
           <div className="flex items-center gap-2">
-            {/* Theme toggle */}
             <button
               onClick={onThemeToggle}
               className="p-2 rounded-lg hover:bg-secondary transition-smooth text-muted-foreground hover:text-foreground"
@@ -76,7 +79,6 @@ export function Navigation({
               {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
             </button>
 
-            {/* Admin logout */}
             {isAdmin && (
               <button
                 onClick={onAdminLogout}
@@ -86,7 +88,6 @@ export function Navigation({
               </button>
             )}
 
-            {/* Mobile menu button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden p-2 rounded-lg hover:bg-secondary transition-smooth"
@@ -103,7 +104,8 @@ export function Navigation({
               <button
                 key={item.id}
                 onClick={() => {
-                  onPageChange(item.id)
+                  if (item.id === "help") setShowHelp(true)
+                  else onPageChange(item.id)
                   setIsMobileMenuOpen(false)
                 }}
                 className={`w-full text-left px-4 py-2 rounded-lg transition-smooth font-medium ${
@@ -127,6 +129,48 @@ export function Navigation({
           </div>
         )}
       </div>
+
+      {/* Modal Bantuan */}
+      {showHelp && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[100] animate-in fade-in">
+          <div className="bg-background border border-border rounded-2xl shadow-lg w-full max-w-lg p-6 relative">
+            <button
+              onClick={() => setShowHelp(false)}
+              className="absolute top-3 right-3 text-muted-foreground hover:text-foreground"
+            >
+              <X size={20} />
+            </button>
+            <h2 className="text-xl font-bold mb-3">❓ Bantuan & Panduan</h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              Berikut beberapa pertanyaan umum dan panduan singkat:
+            </p>
+
+            <ul className="space-y-3 text-sm">
+              <li>
+                <strong>💸 Cara Bayar Kas:</strong> Setiap Senin–Kamis Rp2.000 lewat bendahara atau sistem online.
+              </li>
+              <li>
+                <strong>⏰ Lupa Bayar:</strong> Bayar ganda minggu berikutnya, sistem akan mencatat keterlambatan.
+              </li>
+              <li>
+                <strong>🔐 Akses Admin:</strong> Hanya ketua kelas dan bendahara.
+              </li>
+              <li>
+                <strong>🐞 Ada Bug?</strong> Hubungi developer via{" "}
+                <a
+                  href="https://wa.me/6287718203240"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  WhatsApp
+                </a>
+                .
+              </li>
+            </ul>
+          </div>
+        </div>
+      )}
     </nav>
   )
 }
