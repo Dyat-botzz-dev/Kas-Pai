@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: 'v0 App',
   description: 'Created with v0',
   generator: 'v0.app',
+  icons: {
+    icon: 'https://files.catbox.moe/wozyle.jpg',
+  },
 }
 
 export default function RootLayout({
@@ -19,7 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans antialiased`}>
+      <head>
+        <link rel="icon" href="https://files.catbox.moe/wozyle.jpg" type="image/jpeg" />
+      </head>
+      <body className="font-sans antialiased">
         {children}
         <Analytics />
       </body>
