@@ -14,7 +14,6 @@ export function useRealtimeData() {
       setLoading(true)
       const [studentsData, paymentsData] = await Promise.all([getStudents(), getPayments()])
 
-      // Calculate totals from payments
       const updatedStudents = studentsData.map((student) => {
         const studentPayments = paymentsData.filter((p) => p.student_name === student.name)
         const totalPaid = studentPayments.reduce((sum, p) => sum + p.amount, 0)
@@ -25,8 +24,8 @@ export function useRealtimeData() {
 
         return {
           ...student,
-          total_paid: totalPaid,
-          last_payment_date: lastPaymentDate,
+          totalPaid: totalPaid, // Map total_paid to totalPaid
+          lastPaymentDate: lastPaymentDate, // Map last_payment_date to lastPaymentDate
           status: totalPaid > 0 ? ("lunas" as const) : ("belum" as const),
         }
       })
@@ -34,7 +33,7 @@ export function useRealtimeData() {
       setStudents(updatedStudents)
       setPayments(paymentsData)
     } catch (error) {
-      console.error("Error loading data:", error)
+      console.error("[v0] Error loading data:", error)
     } finally {
       setLoading(false)
     }
