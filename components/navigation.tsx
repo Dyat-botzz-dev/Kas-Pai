@@ -5,7 +5,7 @@ import { Menu, X, Moon, Sun } from "lucide-react"
 
 interface NavigationProps {
   currentPage: string
-  onPageChange: (page: any) => void
+  onPageChange: (page: string) => void
   isAdmin: boolean
   onAdminLogout: () => void
   theme: string
@@ -28,6 +28,7 @@ export function Navigation({
     { id: "spending", label: "Rencana Belanja", icon: "🛒" },
     { id: "event", label: "Rencana Acara", icon: "🎉" },
     { id: "memories", label: "Kenang-Kenangan", icon: "📸" },
+    { id: "help", label: "Bantuan", icon: "❓" },
     ...(isAdmin ? [{ id: "admin", label: "Admin Panel", icon: "⚙️" }] : []),
   ]
 
@@ -36,7 +37,10 @@ export function Navigation({
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center gap-3 group cursor-pointer">
+          <div
+            className="flex items-center gap-3 group cursor-pointer"
+            onClick={() => onPageChange("dashboard")}
+          >
             <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center shadow-md-light group-hover:shadow-lg-light transition-smooth">
               <span className="text-primary-foreground font-bold text-lg">💰</span>
             </div>
