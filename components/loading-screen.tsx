@@ -30,7 +30,7 @@ export function LoadingScreen() {
         <div className="mb-8 animate-bounce">
           <div className="w-24 h-24 mx-auto rounded-2xl overflow-hidden shadow-2xl">
             <img
-              src="https://files.catbox.moe/wozyle.jpg"
+              src="https://files.catbox.moe/emyo5r.png"
               alt="Logo Kas Kelas"
               className="w-full h-full object-cover"
             />
