@@ -147,7 +147,7 @@ export function StudentList() {
       <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 shadow-sm-light">
         <p className="text-sm text-foreground">
           <span className="font-semibold">ℹ️ Info:</span> Pembayaran kas dilakukan setiap Senin-Kamis dengan nominal Rp
-          2.000 per minggu.<br></br>web ini masih dalam pengembangan(beta),jika ada bug atau masalah harap lapor ke dev +6287718203240
+          2.000 per minggu.<br></br>web ini masih dalam pengembangan(beta), Jika ada bug atau masalah harap lapor ke dev +6287718203240
         </p>
       </div>
     </div>
