@@ -148,9 +148,6 @@ export function StudentList() {
   <p>
     <span className="font-semibold">ℹ️ Info:</span> Pembayaran kas dilakukan setiap Senin–Kamis dengan nominal Rp 2.000 per minggu.
   </p>
-  <p>
-    <span className="font-semibold">⚠️ Warning:</span> Web ini masih dalam pengembangan (beta). Jika ada bug atau masalah, harap lapor ke dev di +62 877-1820-3240.
-  </p>
 </div>
     </div>
   )
