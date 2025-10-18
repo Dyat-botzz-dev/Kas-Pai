@@ -2,71 +2,73 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { AlertCircle, HelpCircle, MessageSquare } from "lucide-react"
+import { HelpCircle, MessageSquare, AlertCircle } from "lucide-react"
 
 export default function Bantuan() {
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <Card className="shadow-md-light">
+    <div className="container mx-auto px-4 py-6 sm:py-8 max-w-3xl">
+      <Card className="border border-border shadow-md-light">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-2xl">
-            <HelpCircle className="h-6 w-6 text-primary" />
-            Pusat Bantuan Kas Kelas
+          <CardTitle className="flex items-center gap-2 text-xl sm:text-2xl font-bold">
+            <HelpCircle className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+            Bantuan Kas Kelas
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-6">
-          <p className="text-muted-foreground">
-            Selamat datang di pusat bantuan Kas Kelas! Di sini kamu bisa menemukan jawaban atas pertanyaan umum seputar penggunaan aplikasi. Jika masih ada pertanyaan, hubungi admin kelasmu.
+        <CardContent className="space-y-4 sm:space-y-6">
+          <p className="text-sm sm:text-base text-muted-foreground">
+            Temukan jawaban untuk pertanyaan umum tentang aplikasi Kas Kelas di sini. Kalau masih bingung, hubungi admin kelasmu ya!
           </p>
 
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
-              <AccordionTrigger>Cara menambahkan pembayaran baru?</AccordionTrigger>
-              <AccordionContent>
-                Untuk menambahkan pembayaran baru:
+              <AccordionTrigger className="text-sm sm:text-base">Gimana cara catat pembayaran?</AccordionTrigger>
+              <AccordionContent className="text-sm sm:text-base">
                 <ol className="list-decimal pl-5 mt-2 space-y-1">
-                  <li>Buka menu <strong>Riwayat Bayar</strong>.</li>
+                  <li>Pilih menu <strong>Riwayat Bayar</strong> di navigasi.</li>
                   <li>Klik tombol "Tambah Pembayaran".</li>
-                  <li>Isi detail seperti jumlah, tanggal, dan deskripsi.</li>
-                  <li>Simpan, dan pembayaran akan tercatat!</li>
+                  <li>Isi nominal, tanggal, dan keterangan.</li>
+                  <li>Klik simpan, selesai deh!</li>
                 </ol>
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-2">
-              <AccordionTrigger>Bagaimana cara membuat rencana belanja?</AccordionTrigger>
-              <AccordionContent>
-                Untuk membuat rencana belanja:
+              <AccordionTrigger className="text-sm sm:text-base">Cara bikin rencana belanja?</AccordionTrigger>
+              <AccordionContent className="text-sm sm:text-base">
                 <ol className="list-decimal pl-5 mt-2 space-y-1">
-                  <li>Navigasi ke menu <strong>Rencana Belanja</strong>.</li>
+                  <li>Buka menu <strong>Rencana Belanja</strong>.</li>
                   <li>Klik "Tambah Rencana".</li>
-                  <li>Masukkan item, perkiraan biaya, dan prioritas.</li>
-                  <li>Simpan untuk melihat rencana di daftar.</li>
+                  <li>Masukkan nama item, estimasi biaya, dan prioritas.</li>
+                  <li>Simpan, dan rencana akan muncul di daftar.</li>
                 </ol>
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-3">
-              <AccordionTrigger>Apa itu fitur Kenang-Kenangan?</AccordionTrigger>
-              <AccordionContent>
-                Fitur <strong>Kenang-Kenangan</strong> memungkinkan kamu untuk menyimpan momen spesial kelas, seperti foto atau catatan acara. Cukup buka menu tersebut, unggah file, dan tambahkan deskripsi untuk dibagikan dengan teman sekelas.
+              <AccordionTrigger className="text-sm sm:text-base">Fitur Kenang-Kenangan buat apa?</AccordionTrigger>
+              <AccordionContent className="text-sm sm:text-base">
+                Fitur <strong>Kenang-Kenangan</strong> buat nyimpan momen spesial kelas, seperti foto acara atau catatan seru. Tinggal buka menu itu, upload file, tambah keterangan, dan share sama temen!
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-4">
-              <AccordionTrigger>Bagaimana jika saya lupa kata sandi admin?</AccordionTrigger>
-              <AccordionContent>
-                Jika kamu admin dan lupa kata sandi, hubungi tim dukungan kami melalui email atau fitur kontak di aplikasi. Pastikan kamu menyediakan informasi verifikasi untuk memulihkan akun.
+              <AccordionTrigger className="text-sm sm:text-base">Lupa kata sandi admin, apa kabar?</AccordionTrigger>
+              <AccordionContent className="text-sm sm:text-base">
+                Kalau kamu admin dan lupa kata sandi, hubungi tim dukungan lewat email di{" "}
+                <a href="mailto:support@kaskelas.app" className="text-primary hover:underline">
+                  support@kaskelas.app
+                </a>{" "}
+                dengan info akunmu untuk verifikasi.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
 
-          <div className="mt-6 p-4 bg-secondary rounded-lg flex items-start gap-3">
-            <MessageSquare className="h-5 w-5 text-primary mt-1" />
+          <div className="p-4 bg-secondary rounded-lg flex items-start gap-3">
+            <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5 text-primary mt-0.5" />
             <div>
-              <h3 className="font-semibold">Butuh bantuan lebih lanjut?</h3>
-              <p className="text-muted-foreground">
-                Kirim pesan ke admin kelas atau hubungi tim dukungan kami di{" "}
+              <h3 className="font-semibold text-sm sm:text-base">Masih ada pertanyaan?</h3>
+              <p className="text-sm sm:text-base text-muted-foreground">
+                Chat admin kelas atau email kami di{" "}
                 <a href="mailto:support@kaskelas.app" className="text-primary hover:underline">
                   support@kaskelas.app
                 </a>.
@@ -74,9 +76,9 @@ export default function Bantuan() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-muted-foreground text-sm">
+          <div className="flex items-center gap-2 text-muted-foreground text-xs sm:text-sm">
             <AlertCircle className="h-4 w-4" />
-            <span>Pastikan data yang dimasukkan akurat untuk menjaga transparansi kas kelas.</span>
+            <span>Pastikan semua data yang dimasukkan bener biar kas kelas tetap transparan.</span>
           </div>
         </CardContent>
       </Card>
