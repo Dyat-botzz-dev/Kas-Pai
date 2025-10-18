@@ -28,7 +28,7 @@ export function Navigation({
     { id: "spending", label: "Rencana Belanja", icon: "🛒" },
     { id: "event", label: "Rencana Acara", icon: "🎉" },
     { id: "memories", label: "Kenang-Kenangan", icon: "📸" },
-    { id: "help", label: "Bantuan", icon: "❓" },
+    { id: "bantuan", label: "Bantuan", icon: "❓" },
     ...(isAdmin ? [{ id: "admin", label: "Admin Panel", icon: "⚙️" }] : []),
   ]
 
@@ -53,11 +53,11 @@ export function Navigation({
               <button
                 key={item.id}
                 onClick={() => onPageChange(item.id)}
-                className={`px-4 py-2 rounded-lg transition-smooth flex items-center gap-2 font-medium text-sm ${
+                className={px-4 py-2 rounded-lg transition-smooth flex items-center gap-2 font-medium text-sm ${
                   currentPage === item.id
                     ? "bg-primary text-primary-foreground shadow-md-light"
                     : "text-muted-foreground hover:bg-secondary hover:text-foreground"
-                }`}
+                }}
               >
                 <span>{item.icon}</span>
                 <span>{item.label}</span>
@@ -103,11 +103,11 @@ export function Navigation({
                   onPageChange(item.id)
                   setIsMobileMenuOpen(false)
                 }}
-                className={`w-full text-left px-4 py-2 rounded-lg transition-smooth font-medium ${
+                className={w-full text-left px-4 py-2 rounded-lg transition-smooth font-medium ${
                   currentPage === item.id
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:bg-secondary hover:text-foreground"
-                }`}
+                }}
               >
                 <span className="mr-2">{item.icon}</span>
                 {item.label}
