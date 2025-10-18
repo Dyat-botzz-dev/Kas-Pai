@@ -1,87 +1,107 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { HelpCircle, MessageSquare, AlertCircle } from "lucide-react"
+import { useState, useEffect } from "react"
+import { getMemories } from "@/lib/supabase-utils"
 
-export default function Bantuan() {
+interface Memory {
+  id: string
+  title: string
+  date: string
+  event_name: string
+  image_url: string | null
+  description: string | null
+}
+
+export function Memories() {
+  const [memories, setMemories] = useState<Memory[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const loadMemories = async () => {
+      try {
+        setLoading(true)
+        const data = await getMemories()
+        setMemories(data)
+      } catch (error) {
+        console.error("Error loading memories:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadMemories()
+
+    // Setup real-time subscription
+    const { getSupabaseClient } = require("@/lib/supabase")
+    const supabase = getSupabaseClient()
+
+    const subscription = supabase
+      .channel("memories-changes")
+      .on("postgres_changes", { event: "*", schema: "public", table: "memories" }, () => {
+        loadMemories()
+      })
+      .subscribe()
+
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [])
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString("id-ID", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-96">
+        <div className="animate-spin text-primary">⏳</div>
+      </div>
+    )
+  }
+
   return (
-    <div className="container mx-auto px-4 py-6 sm:py-8 max-w-3xl">
-      <Card className="border border-border shadow-md-light">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-xl sm:text-2xl font-bold">
-            <HelpCircle className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
-            Bantuan Kas Kelas
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4 sm:space-y-6">
-          <p className="text-sm sm:text-base text-muted-foreground">
-            Temukan jawaban untuk pertanyaan umum tentang aplikasi Kas Kelas di sini. Kalau masih bingung, hubungi admin kelasmu ya!
-          </p>
+    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4">
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Kenang-Kenangan Kelas</h2>
+        <p className="text-slate-600 dark:text-slate-400">Koleksi momen berharga dari berbagai acara kelas</p>
+      </div>
 
-          <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="item-1">
-              <AccordionTrigger className="text-sm sm:text-base">Gimana cara catat pembayaran?</AccordionTrigger>
-              <AccordionContent className="text-sm sm:text-base">
-                <ol className="list-decimal pl-5 mt-2 space-y-1">
-                  <li>Pilih menu <strong>Riwayat Bayar</strong> di navigasi.</li>
-                  <li>Klik tombol "Tambah Pembayaran".</li>
-                  <li>Isi nominal, tanggal, dan keterangan.</li>
-                  <li>Klik simpan, selesai deh!</li>
-                </ol>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="item-2">
-              <AccordionTrigger className="text-sm sm:text-base">Cara bikin rencana belanja?</AccordionTrigger>
-              <AccordionContent className="text-sm sm:text-base">
-                <ol className="list-decimal pl-5 mt-2 space-y-1">
-                  <li>Buka menu <strong>Rencana Belanja</strong>.</li>
-                  <li>Klik "Tambah Rencana".</li>
-                  <li>Masukkan nama item, estimasi biaya, dan prioritas.</li>
-                  <li>Simpan, dan rencana akan muncul di daftar.</li>
-                </ol>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="item-3">
-              <AccordionTrigger className="text-sm sm:text-base">Fitur Kenang-Kenangan buat apa?</AccordionTrigger>
-              <AccordionContent className="text-sm sm:text-base">
-                Fitur <strong>Kenang-Kenangan</strong> buat nyimpan momen spesial kelas, seperti foto acara atau catatan seru. Tinggal buka menu itu, upload file, tambah keterangan, dan share sama temen!
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="item-4">
-              <AccordionTrigger className="text-sm sm:text-base">Lupa kata sandi admin, apa kabar?</AccordionTrigger>
-              <AccordionContent className="text-sm sm:text-base">
-                Kalau kamu admin dan lupa kata sandi, hubungi tim dukungan lewat email di{" "}
-                <a href="mailto:support@kaskelas.app" className="text-primary hover:underline">
-                  support@kaskelas.app
-                </a>{" "}
-                dengan info akunmu untuk verifikasi.
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-
-          <div className="p-4 bg-secondary rounded-lg flex items-start gap-3">
-            <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5 text-primary mt-0.5" />
-            <div>
-              <h3 className="font-semibold text-sm sm:text-base">Masih ada pertanyaan?</h3>
-              <p className="text-sm sm:text-base text-muted-foreground">
-                Chat admin kelas atau email kami di{" "}
-                <a href="mailto:support@kaskelas.app" className="text-primary hover:underline">
-                  support@kaskelas.app
-                </a>.
-              </p>
+      {/* Memories Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {memories.map((memory) => (
+          <div
+            key={memory.id}
+            className="bg-white dark:bg-slate-800 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300 hover:scale-105"
+          >
+            <div className="relative overflow-hidden h-48 bg-slate-200 dark:bg-slate-700">
+              <img
+                src={memory.image_url || "/placeholder.svg"}
+                alt={memory.title}
+                className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+              />
+            </div>
+            <div className="p-4">
+              <h3 className="font-bold text-slate-900 dark:text-white mb-1">{memory.title}</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">{memory.event_name}</p>
+              <p className="text-sm text-slate-600 dark:text-slate-300 mb-3">{memory.description}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">📅 {formatDate(memory.date)}</p>
             </div>
           </div>
+        ))}
+      </div>
 
-          <div className="flex items-center gap-2 text-muted-foreground text-xs sm:text-sm">
-            <AlertCircle className="h-4 w-4" />
-            <span>Pastikan semua data yang dimasukkan bener biar kas kelas tetap transparan.</span>
-          </div>
-        </CardContent>
-      </Card>
+      {/* Info Box */}
+      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
+        <p className="text-sm text-blue-800 dark:text-blue-200">
+          <span className="font-semibold">ℹ️ Info:</span> Foto dan video dari acara kelas dapat diunggah Oleh Admin.
+           Semua kenang-kenangan akan ditampilkan di sini secara real-time.
+        </p>
+      </div>
     </div>
   )
 }
