@@ -3,6 +3,13 @@
 import { useState } from "react"
 import { Menu, X, Moon, Sun } from "lucide-react"
 import { Bantuan } from "./Bantuan"
+// Placeholder untuk komponen lain; ganti dengan impor sebenarnya saat tersedia
+import { Dashboard } from "./Dashboard"
+import { Payment } from "./Payment"
+import { Spending } from "./Spending"
+import { Event } from "./Event"
+import { Memories } from "./Memories"
+import { Admin } from "./Admin"
 
 interface NavigationProps {
   isAdmin: boolean
@@ -31,19 +38,34 @@ export function Navigation({
   ]
 
   const renderContent = () => {
-    if (currentPage === "bantuan") {
-      return <Bantuan />
+    switch (currentPage) {
+      case "dashboard":
+        return <Dashboard />
+      case "payment":
+        return <Payment />
+      case "spending":
+        return <Spending />
+      case "event":
+        return <Event />
+      case "memories":
+        return <Memories />
+      case "bantuan":
+        return <Bantuan />
+      case "admin":
+        return isAdmin ? <Admin /> : <div className="container mx-auto px-4 py-8 text-center">
+          <h1 className="text-2xl font-bold text-foreground">Akses Ditolak</h1>
+          <p className="text-muted-foreground mt-4">Halaman ini hanya untuk admin.</p>
+        </div>
+      default:
+        return (
+          <div className="container mx-auto px-4 py-8 text-center">
+            <h1 className="text-2xl font-bold text-foreground">Halaman Tidak Ditemukan</h1>
+            <p className="text-muted-foreground mt-4">
+              Halaman {currentPage} belum diimplementasikan. Silakan buat komponen di folder components/.
+            </p>
+          </div>
+        )
     }
-    return (
-      <div className="container mx-auto px-4 py-8 text-center">
-        <h1 className="text-2xl font-bold text-foreground">
-          {navItems.find((item) => item.id === currentPage)?.label || "Halaman"}
-        </h1>
-        <p className="text-muted-foreground mt-4">
-          Ini adalah placeholder untuk halaman {currentPage}. Implementasi konten halaman dapat ditambahkan di sini.
-        </p>
-      </div>
-    )
   }
 
   return (
