@@ -4,93 +4,113 @@ import { HelpCircle, Mail, MessageSquare } from "lucide-react"
 
 export function Bantuan() {
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <div className="space-y-8">
+    <div className="container mx-auto px-4 py-10 max-w-4xl">
+      <div className="space-y-10">
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-foreground mb-4">Pusat Bantuan</h1>
+          <h1 className="text-3xl font-bold text-foreground mb-4">Pusat Bantuan PAI-KAS</h1>
           <p className="text-muted-foreground text-lg">
-            Temukan jawaban atas pertanyaan umum atau hubungi kami untuk bantuan lebih lanjut.
+            Butuh bantuan? Di sini kamu bisa temukan panduan, FAQ, dan cara menghubungi tim pengelola sistem kas PAI.
           </p>
         </div>
 
         {/* FAQ Section */}
-        <div className="space-y-6">
-          <h2 className="text-2xl font-semibold text-foreground">Pertanyaan Umum</h2>
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold text-foreground">Pertanyaan yang Sering Diajukan</h2>
           <div className="space-y-4">
-            <div className="bg-secondary/50 p-6 rounded-lg shadow-md-light">
+            <div className="bg-secondary/50 p-6 rounded-xl shadow-sm">
               <div className="flex items-start gap-4">
                 <HelpCircle className="text-primary mt-1" size={24} />
                 <div>
-                  <h3 className="font-medium text-foreground">Bagaimana cara menambah transaksi baru?</h3>
+                  <h3 className="font-medium text-foreground">Bagaimana cara membayar kas?</h3>
                   <p className="text-muted-foreground mt-2">
-                    Untuk menambah transaksi, buka halaman "Riwayat Bayar", klik tombol "Tambah Transaksi", lalu isi detail seperti jumlah dan deskripsi.
+                    Pembayaran kas dapat dilakukan melalui bendahara kelas atau langsung melalui menu{" "}
+                    <span className="font-semibold">“Pembayaran Kas”</span> di website. Pastikan jumlah dan tanggal sesuai.
                   </p>
                 </div>
               </div>
             </div>
-            <div className="bg-secondary/50 p-6 rounded-lg shadow-md-light">
+
+            <div className="bg-secondary/50 p-6 rounded-xl shadow-sm">
               <div className="flex items-start gap-4">
                 <HelpCircle className="text-primary mt-1" size={24} />
                 <div>
-                  <h3 className="font-medium text-foreground">Bagaimana cara mengedit rencana belanja?</h3>
+                  <h3 className="font-medium text-foreground">Bagaimana cara melihat riwayat pembayaran?</h3>
                   <p className="text-muted-foreground mt-2">
-                    Navigasi ke "Rencana Belanja", pilih item yang ingin diedit, lalu klik ikon pensil untuk memperbarui detailnya.
+                    Masuk ke halaman <span className="font-semibold">“Riwayat Kas”</span>. Semua transaksi kamu akan tercatat di sana,
+                    lengkap dengan tanggal dan statusnya.
                   </p>
                 </div>
               </div>
             </div>
-            <div className="bg-secondary/50 p-6 rounded-lg shadow-md-light">
+
+            <div className="bg-secondary/50 p-6 rounded-xl shadow-sm">
               <div className="flex items-start gap-4">
                 <HelpCircle className="text-primary mt-1" size={24} />
                 <div>
-                  <h3 className="font-medium text-foreground">Apa yang harus dilakukan jika lupa kata sandi?</h3>
+                  <h3 className="font-medium text-foreground">Bagaimana kalau ada kesalahan nominal?</h3>
                   <p className="text-muted-foreground mt-2">
-                    Klik "Lupa Kata Sandi" di halaman login, lalu ikuti petunjuk untuk mereset kata sandi melalui email.
+                    Segera hubungi bendahara atau admin melalui fitur chat atau email agar data bisa dikoreksi sebelum
+                    laporan akhir diproses.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-secondary/50 p-6 rounded-xl shadow-sm">
+              <div className="flex items-start gap-4">
+                <HelpCircle className="text-primary mt-1" size={24} />
+                <div>
+                  <h3 className="font-medium text-foreground">Apakah data transaksi saya aman?</h3>
+                  <p className="text-muted-foreground mt-2">
+                    Ya. Semua data disimpan di database <span className="font-semibold">Supabase</span> dengan autentikasi
+                    dan proteksi enkripsi. Hanya pengguna yang terverifikasi yang bisa mengakses data kas.
                   </p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Contact Section */}
-        <div className="space-y-6">
-          <h2 className="text-2xl font-semibold text-foreground">Hubungi Kami</h2>
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold text-foreground">Butuh Bantuan Langsung?</h2>
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-secondary/50 p-6 rounded-lg shadow-md-light flex items-start gap-4">
+            <div className="bg-secondary/50 p-6 rounded-xl shadow-sm flex items-start gap-4">
               <Mail className="text-primary mt-1" size={24} />
               <div>
-                <h3 className="font-medium text-foreground">Email Support</h3>
+                <h3 className="font-medium text-foreground">Email Admin</h3>
                 <p className="text-muted-foreground mt-2">
-                  Kirim pertanyaan Anda ke{" "}
-                  <a href="mailto:support@kaskelas.com" className="text-primary hover:underline">
-                    support@kaskelas.com
+                  Kirim pertanyaan kamu ke{" "}
+                  <a href="mailto:admin@pai-kas.online" className="text-primary hover:underline">
+                    admin@pai-kas.online
                   </a>
                 </p>
               </div>
             </div>
-            <div className="bg-secondary/50 p-6 rounded-lg shadow-md-light flex items-start gap-4">
+
+            <div className="bg-secondary/50 p-6 rounded-xl shadow-sm flex items-start gap-4">
               <MessageSquare className="text-primary mt-1" size={24} />
               <div>
-                <h3 className="font-medium text-foreground">Live Chat</h3>
+                <h3 className="font-medium text-foreground">Live Chat / WhatsApp</h3>
                 <p className="text-muted-foreground mt-2">
-                  Gunakan fitur live chat di pojok kanan bawah untuk bantuan langsung (tersedia 09:00-17:00 WIB).
+                  Chat langsung dengan pengelola kas melalui WhatsApp atau fitur live chat di pojok kanan bawah
+                  (aktif 09:00–17:00 WIB).
                 </p>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Additional Resources */}
         <div className="text-center">
-          <h2 className="text-2xl font-semibold text-foreground mb-4">Sumber Daya Lain</h2>
+          <h2 className="text-2xl font-semibold text-foreground mb-4">Panduan Pengguna</h2>
           <p className="text-muted-foreground">
-            Lihat{" "}
+            Untuk langkah-langkah lebih detail, buka{" "}
             <a href="/panduan" className="text-primary hover:underline">
-              Panduan Pengguna
+              halaman panduan
             </a>{" "}
-            kami untuk informasi lebih detail tentang penggunaan aplikasi Kas Kelas.
+            agar kamu bisa menggunakan semua fitur PAI-KAS dengan maksimal.
           </p>
         </div>
       </div>
