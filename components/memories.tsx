@@ -98,7 +98,7 @@ export function Memories() {
       {/* Info Box */}
       <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
         <p className="text-sm text-blue-800 dark:text-blue-200">
-          <span className="font-semibold">ℹ️ Info:</span> Foto dan video dari acara kelas dapat diunggah Oleh Admin (Yasar).
+          <span className="font-semibold">ℹ️ Info:</span> Foto dan video dari acara kelas dapat diunggah Oleh Admin.
            Semua kenang-kenangan akan ditampilkan di sini secara real-time.
         </p>
       </div>
