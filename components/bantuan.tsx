@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { getMemories } from "@/lib/supabase-utils"
+import { getbantuan } from "@/lib/supabase-utils"
 
 interface Memory {
   id: string
@@ -12,33 +12,33 @@ interface Memory {
   description: string | null
 }
 
-export function Memories() {
-  const [memories, setMemories] = useState<Memory[]>([])
+export function bantuan() {
+  const [bantuan, setbantuan] = useState<Memory[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const loadMemories = async () => {
+    const loadbantuan = async () => {
       try {
         setLoading(true)
-        const data = await getMemories()
-        setMemories(data)
+        const data = await getbantuan()
+        setbantuan(data)
       } catch (error) {
-        console.error("Error loading memories:", error)
+        console.error("Error loading bantuan:", error)
       } finally {
         setLoading(false)
       }
     }
 
-    loadMemories()
+    loadbantuan()
 
     // Setup real-time subscription
     const { getSupabaseClient } = require("@/lib/supabase")
     const supabase = getSupabaseClient()
 
     const subscription = supabase
-      .channel("memories-changes")
-      .on("postgres_changes", { event: "*", schema: "public", table: "memories" }, () => {
-        loadMemories()
+      .channel("bantuan-changes")
+      .on("postgres_changes", { event: "*", schema: "public", table: "bantuan" }, () => {
+        loadbantuan()
       })
       .subscribe()
 
@@ -71,9 +71,9 @@ export function Memories() {
         <p className="text-slate-600 dark:text-slate-400">Koleksi momen berharga dari berbagai acara kelas</p>
       </div>
 
-      {/* Memories Grid */}
+      {/* bantuan Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {memories.map((memory) => (
+        {bantuan.map((memory) => (
           <div
             key={memory.id}
             className="bg-white dark:bg-slate-800 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300 hover:scale-105"
