@@ -7,6 +7,7 @@ import { PaymentHistory } from "./payment-history"
 import { SpendingPlan } from "./spending-plan"
 import { EventPlan } from "./event-plan"
 import { Memories } from "./memories"
+import { Bantuan } from "./bantuan"
 import { AdminPanel } from "./admin-panel"
 import { useTheme } from "./theme-provider"
 
@@ -66,6 +67,7 @@ export function Dashboard() {
         {currentPage === "spending" && <SpendingPlan />}
         {currentPage === "event" && <EventPlan />}
         {currentPage === "memories" && <Memories />}
+        {currentPage === "bantuan" && <Bantuan />}
         {currentPage === "admin" && isAdmin && <AdminPanel onLogout={handleAdminLogout} />}
         {currentPage === "admin" && !isAdmin && (
           <AdminPanel onLogout={handleAdminLogout} onLoginSuccess={handleAdminLogin} />
