@@ -14,7 +14,7 @@ export function Bantuan() {
           </p>
         </div>
 
-        {/* FAQ Section */}
+        {/*  FAQ Section */}
         <section className="space-y-6">
           <h2 className="text-2xl font-semibold text-foreground">Pertanyaan yang Sering Diajukan</h2>
           <div className="space-y-4">
