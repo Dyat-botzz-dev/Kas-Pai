@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react"
 import { getbantuan } from "@/lib/supabase-utils"
+import { getSupabaseClient } from "@/lib/supabase"
 
-interface Memory {
+interface BantuanItem {
   id: string
   title: string
   date: string
@@ -12,16 +13,18 @@ interface Memory {
   description: string | null
 }
 
-export function bantuan() {
-  const [bantuan, setbantuan] = useState<Memory[]>([])
+export default function Bantuan() {
+  const [bantuan, setBantuan] = useState<BantuanItem[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const loadbantuan = async () => {
+    const supabase = getSupabaseClient()
+
+    const loadBantuan = async () => {
       try {
         setLoading(true)
         const data = await getbantuan()
-        setbantuan(data)
+        setBantuan(data || [])
       } catch (error) {
         console.error("Error loading bantuan:", error)
       } finally {
@@ -29,21 +32,19 @@ export function bantuan() {
       }
     }
 
-    loadbantuan()
-
-    // Setup real-time subscription
-    const { getSupabaseClient } = require("@/lib/supabase")
-    const supabase = getSupabaseClient()
+    loadBantuan()
 
     const subscription = supabase
       .channel("bantuan-changes")
-      .on("postgres_changes", { event: "*", schema: "public", table: "bantuan" }, () => {
-        loadbantuan()
-      })
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "bantuan" },
+        loadBantuan
+      )
       .subscribe()
 
     return () => {
-      subscription.unsubscribe()
+      supabase.removeChannel(subscription)
     }
   }, [])
 
@@ -56,50 +57,53 @@ export function bantuan() {
     })
   }
 
-  if (loading) {
+  if (loading)
     return (
       <div className="flex items-center justify-center h-96">
         <div className="animate-spin text-primary">⏳</div>
       </div>
     )
-  }
 
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Kenang-Kenangan Kelas</h2>
-        <p className="text-slate-600 dark:text-slate-400">Koleksi momen berharga dari berbagai acara kelas</p>
+        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+          Kenang-Kenangan Kelas
+        </h2>
+        <p className="text-slate-600 dark:text-slate-400">
+          Koleksi momen berharga dari berbagai acara kelas
+        </p>
       </div>
 
-      {/* bantuan Grid */}
+      {/* Grid bantuan */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {bantuan.map((memory) => (
+        {bantuan.map((item) => (
           <div
-            key={memory.id}
+            key={item.id}
             className="bg-white dark:bg-slate-800 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300 hover:scale-105"
           >
             <div className="relative overflow-hidden h-48 bg-slate-200 dark:bg-slate-700">
               <img
-                src={memory.image_url || "/placeholder.svg"}
-                alt={memory.title}
+                src={item.image_url || "/placeholder.svg"}
+                alt={item.title}
                 className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
               />
             </div>
             <div className="p-4">
-              <h3 className="font-bold text-slate-900 dark:text-white mb-1">{memory.title}</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">{memory.event_name}</p>
-              <p className="text-sm text-slate-600 dark:text-slate-300 mb-3">{memory.description}</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400">📅 {formatDate(memory.date)}</p>
+              <h3 className="font-bold text-slate-900 dark:text-white mb-1">{item.title}</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">{item.event_name}</p>
+              <p className="text-sm text-slate-600 dark:text-slate-300 mb-3">{item.description}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                📅 {formatDate(item.date)}
+              </p>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Info Box */}
       <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
         <p className="text-sm text-blue-800 dark:text-blue-200">
-          <span className="font-semibold">ℹ️ Info:</span> Foto dan video dari acara kelas dapat diunggah Oleh Admin.
-           Semua kenang-kenangan akan ditampilkan di sini secara real-time.
+          <span className="font-semibold">ℹ️ Info:</span> Foto dan video dari acara kelas dapat diunggah oleh Admin. Semua kenang-kenangan akan muncul secara real-time.
         </p>
       </div>
     </div>
