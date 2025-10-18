@@ -21,7 +21,7 @@ export default function Bantuan() {
 
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
-              <AccordionTrigger className="text-sm sm:text-base">Gimana cara catat pembayaran?</AccordionTrigger>
+              <AccordionTrigger className="text-sm sm:text-base">Gimana cara catat pembayaran? </AccordionTrigger>
               <AccordionContent className="text-sm sm:text-base">
                 <ol className="list-decimal pl-5 mt-2 space-y-1">
                   <li>Pilih menu <strong>Riwayat Bayar</strong> di navigasi.</li>
