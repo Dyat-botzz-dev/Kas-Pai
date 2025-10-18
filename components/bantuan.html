@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Bantuan</title>
+    <style>
+        /* Container untuk bagian Bantuan */
+        .bantuan-container {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Jarak antara ikon dan teks */
+            padding: 15px;
+            background-color: #f0f4f8; /* Latar belakang lembut */
+            border-radius: 8px; /* Sudut membulat */
+            width: fit-content;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Bayangan halus */
+            transition: transform 0.2s; /* Efek transisi saat hover */
+        }
+
+        /* Styling untuk ikon */
+        .bantuan-icon {
+            font-size: 24px; /* Ukuran ikon */
+        }
+
+        /* Styling untuk label */
+        .bantuan-label {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        /* Efek hover */
+        .bantuan-container:hover {
+            transform: scale(1.05); /* Sedikit membesar saat hover */
+            cursor: pointer;
+        }
+
+        /* Responsif untuk layar kecil */
+        @media (max-width: 600px) {
+            .bantuan-container {
+                padding: 10px;
+            }
+
+            .bantuan-icon {
+                font-size: 20px;
+            }
+
+            .bantuan-label {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bantuan-container" id="bantuan">
+        <span class="bantuan-icon">❓</span>
+        <span class="bantuan-label">Bantuan</span>
+    </div>
+</body>
+</html>
