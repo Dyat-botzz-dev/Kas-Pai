@@ -1,80 +1,55 @@
-import React from "react";
+"use client"
 
-export default function Bantuan() {
-  const helpItems = [
-    {
-      q: "Bagaimana cara membayar kas?",
-      a: "Pembayaran kas dapat dilakukan setiap Senin–Kamis sebesar Rp2.000 melalui bendahara kelas atau sistem online yang tersedia.",
-    },
-    {
-      q: "Bagaimana jika saya lupa membayar?",
-      a: "Tenang, sistem akan mencatat keterlambatan. Kamu bisa membayar ganda minggu berikutnya.",
-    },
-    {
-      q: "Siapa yang bisa mengakses panel admin?",
-      a: "Hanya ketua kelas dan bendahara yang memiliki hak akses admin.",
-    },
-    {
-      q: "Ada bug atau masalah?",
-      a: "Laporkan langsung ke developer melalui WhatsApp: +62 877-1820-3240 atau menu ‘Lapor Bug’ di bawah.",
-    },
-  ];
-
+export default function PanduanPaymentDev() {
   return (
-    <div className="min-h-screen bg-background flex flex-col text-foreground">
-      {/* Header */}
-      <header className="bg-primary text-primary-foreground py-6 shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold">❓ Bantuan & Panduan</h1>
-          <p className="mt-2 text-primary-foreground/80">
-            Panduan lengkap untuk menggunakan sistem kas kelas
-          </p>
-        </div>
-      </header>
+    <div className="max-w-3xl mx-auto p-6 space-y-6 animate-in fade-in slide-in-from-bottom-4">
+      <h1 className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">🧭 Panduan Developer: PaymentHistory</h1>
 
-      {/* Main Content */}
-      <main className="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="bg-card rounded-xl shadow-lg p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-4">Pertanyaan Umum</h2>
-          <p className="text-muted-foreground mb-6">
-            Berikut adalah jawaban atas pertanyaan umum terkait sistem kas kelas.
-          </p>
-          <div className="grid gap-6 md:grid-cols-2">
-            {helpItems.map((item, i) => (
-              <div
-                key={i}
-                className="border border-border rounded-lg p-5 bg-card hover:shadow-lg transition-shadow duration-300"
-              >
-                <h3 className="font-semibold text-foreground mb-2">{item.q}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+      <section className="space-y-3">
+        <p className="text-slate-700 dark:text-slate-300">
+          Komponen <code>PaymentHistory</code> digunakan untuk menampilkan daftar pembayaran dari tabel <code>payments</code> di Supabase.
+          Data diambil dengan fungsi <code>getPayments()</code> dari <code>lib/supabase-utils.ts</code>.
+        </p>
 
-        {/* Contact Section */}
-        <div className="text-center">
-          <h2 className="text-xl font-semibold mb-4">Butuh Bantuan Lebih Lanjut?</h2>
-          <p className="text-muted-foreground mb-6">
-            Jika kamu memiliki pertanyaan lain atau menemukan masalah, hubungi kami!
-          </p>
-          <a
-            href="https://wa.me/6287718203240"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-lg hover:bg-primary/90 transition-colors duration-300"
-          >
-            💬 Hubungi Developer
-          </a>
-        </div>
-      </main>
+        <h2 className="text-xl font-semibold mt-4">Struktur Data</h2>
+        <pre className="bg-slate-900 text-slate-100 p-4 rounded-lg text-sm overflow-auto">
+{`interface Payment {
+  id: string
+  student_name: string
+  amount: number
+  date: string
+  day: string
+  notes: string | null
+}`}
+        </pre>
 
-      {/* Footer */}
-      <footer className="bg-muted py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-muted-foreground">
-          <p>© 2025 Sistem Kas Kelas. All rights reserved.</p>
-        </div>
-      </footer>
+        <h2 className="text-xl font-semibold mt-4">Lifecycle dan Realtime</h2>
+        <ul className="list-decimal pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+          <li>Saat komponen dimount, <code>loadPayments()</code> dijalankan untuk memuat data awal.</li>
+          <li>Realtime subscription dibuat menggunakan Supabase channel <code>payments-changes</code>.</li>
+          <li>Event apapun (INSERT, UPDATE, DELETE) di tabel <code>payments</code> akan memicu reload data otomatis.</li>
+          <li>Pada unmount, subscription dibersihkan dengan <code>unsubscribe()</code>.</li>
+        </ul>
+
+        <h2 className="text-xl font-semibold mt-4">UI dan Warna Hari</h2>
+        <p className="text-slate-700 dark:text-slate-300">
+          Fungsi <code>getDayColor()</code> memberi warna berbeda per hari agar daftar transaksi mudah dibaca.
+        </p>
+
+        <pre className="bg-slate-900 text-slate-100 p-4 rounded-lg text-sm overflow-auto">
+{`Senin → Biru
+Selasa → Ungu
+Rabu → Pink
+Kamis → Oranye`}
+        </pre>
+
+        <h2 className="text-xl font-semibold mt-4">Tips Debugging</h2>
+        <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+          <li>Pastikan file <code>@/lib/supabase</code> mengekspor fungsi <code>getSupabaseClient()</code> dengan benar.</li>
+          <li>Gunakan <code>console.error</code> untuk melacak error loading data.</li>
+          <li>Jika data tidak muncul, cek izin tabel di Supabase (Row Level Security dan Policies).</li>
+        </ul>
+      </section>
     </div>
-  );
+  )
 }
