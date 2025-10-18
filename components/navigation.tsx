@@ -28,7 +28,6 @@ export function Navigation({
     { id: "spending", label: "Rencana Belanja", icon: "🛒" },
     { id: "event", label: "Rencana Acara", icon: "🎉" },
     { id: "memories", label: "Kenang-Kenangan", icon: "📸" },
-    { id: "bantuan", label: "Bantuan", icon: "❓" },
     ...(isAdmin ? [{ id: "admin", label: "Admin Panel", icon: "⚙️" }] : []),
   ]
 
