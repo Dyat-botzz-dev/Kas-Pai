@@ -1,21 +1,47 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { LoadingScreen } from "@/components/loading-screen"
-import { Dashboard } from "@/components/dashboard"
-import { ThemeProvider } from "@/components/theme-provider"
+import { useState } from "react";
+import { Navigation } from "../components/navigation";
+import Bantuan from "../components/bantuan";
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState("dashboard");
+  const [isAdmin, setIsAdmin] = useState(false); // Ganti dengan logika autentikasi
+  const [theme, setTheme] = useState("light");
 
-  useEffect(() => {
-    // Simulate loading time
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 2500)
+  const handlePageChange = (page: string) => {
+    setCurrentPage(page);
+  };
 
-    return () => clearTimeout(timer)
-  }, [])
+  const handleAdminLogout = () => {
+    setIsAdmin(false); // Logika logout
+  };
 
-  return <ThemeProvider>{isLoading ? <LoadingScreen /> : <Dashboard />}</ThemeProvider>
+  const handleThemeToggle = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case "help":
+        return <Bantuan />;
+      case "dashboard":
+      default:
+        return <div className="p-6">Selamat datang di Dashboard</div>;
+    }
+  };
+
+  return (
+    <div className={`min-h-screen ${theme === "dark" ? "bg-gray-900" : "bg-gray-100"}`}>
+      <Navigation
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+        isAdmin={isAdmin}
+        onAdminLogout={handleAdminLogout}
+        theme={theme}
+        onThemeToggle={handleThemeToggle}
+      />
+      <main>{renderPage()}</main>
+    </div>
+  );
 }
