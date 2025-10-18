@@ -21,31 +21,60 @@ export default function Bantuan() {
   ]
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">❓ Bantuan & Panduan</h1>
-      <p className="text-muted-foreground mb-6">
-        Halaman ini berisi pertanyaan umum dan panduan cepat menggunakan sistem kas kelas.
-      </p>
+    <div className="min-h-screen bg-background flex flex-col">
+      {/* Header */}
+      <header className="bg-primary text-primary-foreground py-6 shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-3xl font-bold">❓ Bantuan & Panduan</h1>
+          <p className="mt-2 text-primary-foreground/80">
+            Panduan lengkap untuk menggunakan sistem kas kelas
+          </p>
+        </div>
+      </header>
 
-      <div className="space-y-4">
-        {helpItems.map((item, i) => (
-          <div key={i} className="border border-border rounded-xl p-4 bg-card hover:shadow-md transition-smooth">
-            <h2 className="font-semibold text-foreground mb-2">{item.q}</h2>
-            <p className="text-muted-foreground text-sm leading-relaxed">{item.a}</p>
+      {/* Main Content */}
+      <main className="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="bg-card rounded-xl shadow-lg p-6 mb-8">
+          <h2 className="text-xl font-semibold mb-4">Pertanyaan Umum</h2>
+          <p className="text-muted-foreground mb-6">
+            Berikut adalah jawaban atas pertanyaan umum terkait sistem kas kelas.
+          </p>
+          <div className="grid gap-6 md:grid-cols-2">
+            {helpItems.map((item, i) => (
+              <div
+                key={i}
+                className="border border-border rounded-lg p-5 bg-card hover:shadow-lg transition-shadow duration-300"
+              >
+                <h3 className="font-semibold text-foreground mb-2">{item.q}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{item.a}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
 
-      <div className="mt-8 text-center">
-        <a
-          href="https://wa.me/6287718203240"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:opacity-90 transition-smooth"
-        >
-          💬 Hubungi Developer
-        </a>
-      </div>
+        {/* Contact Section */}
+        <div className="text-center">
+          <h2 className="text-xl font-semibold mb-4">Butuh Bantuan Lebih Lanjut?</h2>
+          <p className="text-muted-foreground mb-6">
+            Jika kamu memiliki pertanyaan lain atau menemukan masalah, hubungi kami!
+          </p>
+          <a
+            href="https://wa.me/6287718203240"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-lg hover:bg-primary/90 transition-colors duration-300"
+          >
+            💬 Hubungi Developer
+          </a>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-muted py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-muted-foreground">
+          <p>&copy; 2025 Sistem Kas Kelas. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   )
 }
