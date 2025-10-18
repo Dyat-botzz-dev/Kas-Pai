@@ -11,7 +11,7 @@ import { Bantuan } from "./bantuan"
 import { AdminPanel } from "./admin-panel"
 import { useTheme } from "./theme-provider"
 
-type Page = "dashboard" | "payment" | "spending" | "event" | "memories" | "admin"
+type Page = "dashboard" | "payment" | "spending" | "event" | "memories" | "bantuan" | "admin"
 
 export function Dashboard() {
   const [currentPage, setCurrentPage] = useState<Page>("dashboard")
