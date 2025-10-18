@@ -1,4 +1,4 @@
-"use client"
+import React from "react";
 
 export default function Bantuan() {
   const helpItems = [
@@ -18,10 +18,10 @@ export default function Bantuan() {
       q: "Ada bug atau masalah?",
       a: "Laporkan langsung ke developer melalui WhatsApp: +62 877-1820-3240 atau menu ‘Lapor Bug’ di bawah.",
     },
-  ]
+  ];
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col text-foreground">
       {/* Header */}
       <header className="bg-primary text-primary-foreground py-6 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -72,9 +72,9 @@ export default function Bantuan() {
       {/* Footer */}
       <footer className="bg-muted py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-muted-foreground">
-          <p>&copy; 2025 Sistem Kas Kelas. All rights reserved.</p>
+          <p>© 2025 Sistem Kas Kelas. All rights reserved.</p>
         </div>
       </footer>
     </div>
-  )
+  );
 }
